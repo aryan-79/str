@@ -35,6 +35,8 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.8",
+    "@fontsource-variable/playfair-display": "^5.2.8",
+    "@fontsource-variable/plus-jakarta-sans": "^5.2.8",
     "@tanstack/devtools-vite": "^0.3.12",
     "@types/node": "^22.19.2",
     "@types/react": "^19.2.7",
