@@ -6,7 +6,13 @@ export const Route = createFileRoute('/')({
     const queryClient = context.queryClient;
     const data = await queryClient.ensureQueryData({
       queryKey: ['users'],
-      queryFn: getUsers,
+      queryFn: async () =>
+        await getUsers({
+          data: {
+            page: 0,
+            limit: 10,
+          },
+        }),
     });
 
     return data;
@@ -15,6 +21,6 @@ export const Route = createFileRoute('/')({
 });
 
 function App() {
-  const { data } = Route.useLoaderData();
+  const data = Route.useLoaderData();
   return <pre>{JSON.stringify(data, null, 2)}</pre>;
 }

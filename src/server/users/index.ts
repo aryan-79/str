@@ -1,22 +1,35 @@
 import { createServerFn } from '@tanstack/react-start';
 import z from 'zod';
 
-export const getUsers = createServerFn({ method: 'GET' }).handler(async () => {
-  await new Promise((resolve) => setTimeout(resolve, 3000));
-
-  return {
-    data: [
-      {
-        name: 'user1',
-        age: 20,
-      },
-      {
-        name: 'user2',
-        age: 30,
-      },
-    ],
-  };
+const paginationSchema = z.object({
+  page: z.number(),
+  limit: z.number(),
 });
+
+export const getUsers = createServerFn({ method: 'GET' })
+  .inputValidator(paginationSchema)
+  .handler(async ({ data }) => {
+    const { page, limit } = data;
+
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+
+    return {
+      pagination: {
+        page,
+        limit,
+      },
+      data: [
+        {
+          name: 'user1',
+          age: 20,
+        },
+        {
+          name: 'user2',
+          age: 30,
+        },
+      ],
+    };
+  });
 
 const userSchema = z.object({
   email: z.email(),
