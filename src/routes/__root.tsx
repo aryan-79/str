@@ -4,6 +4,7 @@ import { createRootRouteWithContext, HeadContent, Scripts } from '@tanstack/reac
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 import TanStackQueryDevtools from '@/integrations/tanstack-query/devtools';
 import appCss from '../styles.css?url';
+import '../lib/env';
 
 interface MyRouterContext {
   queryClient: QueryClient;
