@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
+import { Destinations } from '@/components/home/explore-desination';
 import { getUsers } from '@/server/users';
 
 export const Route = createFileRoute('/')({
@@ -21,6 +22,5 @@ export const Route = createFileRoute('/')({
 });
 
 function App() {
-  const data = Route.useLoaderData();
-  return <pre>{JSON.stringify(data, null, 2)}</pre>;
+  return <Destinations />;
 }
