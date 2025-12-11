@@ -1,5 +1,5 @@
 import { Award, BadgeCheck, CreditCard, Headphones, Leaf, MapPin } from 'lucide-react';
-import { cn } from '@/lib/cn';
+import { Heading, HightlightText, NormalText } from '../common/typography';
 
 type Props = {
   icon?: React.ReactNode;
@@ -72,18 +72,6 @@ export function WhyChooseUs() {
       </div>
     </div>
   );
-}
-
-export function Heading({ children, className }: { children: React.ReactNode; className?: string }) {
-  return <h1 className={cn('text-3xl font-serif', className)}>{children}</h1>;
-}
-
-export function NormalText({ text, className }: { text: string; className?: string }) {
-  return <span className={cn('', className)}>{text} </span>;
-}
-
-export function HightlightText({ text, className }: { text: string; className?: string }) {
-  return <span className={cn('text-secondary', className)}>{text}</span>;
 }
 
 function Card({ title, description, icon }: Props) {

@@ -1,7 +1,7 @@
 import { Mountain, User } from 'lucide-react';
+import { Heading, HightlightText, NormalText } from '../common/typography';
 import { Button } from '../ui/button';
 import { Card } from '../ui/card';
-import { Heading, HightlightText, NormalText } from './explore-desination';
 
 export function FeaturedTours() {
   return (
