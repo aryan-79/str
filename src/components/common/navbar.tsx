@@ -55,7 +55,7 @@ function ListItem({ title, children, href, ...props }: React.ComponentPropsWitho
 export default function Navbar() {
   const isMobile = useIsMobile();
   return (
-    <div className='container sticky top-2 z-50'>
+    <div className='container sticky top-2 z-50 bg-background p-4'>
       <div className='flex justify-between items-center'>
         <Link to='/' className='text-3xl'>
           Logo
