@@ -14,7 +14,7 @@ export function FeaturedTours() {
         </Heading>
         <p className='text-muted-foreground '>Handpicked experiences loved by thousands of adventurers worldwide</p>
       </div>
-      <div className='grid grid-cols-3 gap-6 mt-8'>
+      <div className='grid sm:grid-cols-2 md:grid-cols-3 gap-6 mt-8'>
         <TourCard />
         <TourCard />
         <TourCard />
