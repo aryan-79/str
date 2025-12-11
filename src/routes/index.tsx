@@ -1,7 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { Destinations } from '@/components/home/explore-desination';
+
 import { FeaturedTours } from '@/components/home/featured-tours';
 import { WhyChooseUs } from '@/components/home/why-choose-us';
+
 import { getUsers } from '@/server/users';
 
 export const Route = createFileRoute('/')({
