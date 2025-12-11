@@ -92,7 +92,7 @@ export default function Navbar() {
 
               <NavigationMenuItem>
                 <NavigationMenuLink asChild>
-                  <Link to='/'>About</Link>
+                  <Link to='/about'>About</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
 

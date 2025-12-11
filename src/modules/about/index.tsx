@@ -1,4 +1,3 @@
-import { createFileRoute } from '@tanstack/react-router';
 import { Eye, Focus, Leaf, Mountain, ShieldCheck, Users } from 'lucide-react';
 import { CTA } from '@/components/common/cta';
 import { Heading, HightlightText, NormalText } from '@/components/common/typography';
@@ -28,9 +27,6 @@ export const coreValues = [
     icon: ShieldCheck,
   },
 ];
-export const Route = createFileRoute('/about/')({
-  component: AboutUs,
-});
 
 function StatsCard({ value, label }: { value: string; label: string }) {
   return (
@@ -41,7 +37,7 @@ function StatsCard({ value, label }: { value: string; label: string }) {
   );
 }
 
-function AboutUs() {
+export default function AboutUs() {
   return (
     <div>
       <div className='text-center mx-auto py-30 space-y-3'>

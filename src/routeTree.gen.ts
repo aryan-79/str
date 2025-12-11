@@ -9,13 +9,13 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppLayoutRouteImport } from './routes/_app-layout'
 import { Route as ContactIndexRouteImport } from './routes/contact/index'
-import { Route as AboutIndexRouteImport } from './routes/about/index'
+import { Route as AppLayoutIndexRouteImport } from './routes/_app-layout/index'
+import { Route as AppLayoutAboutRouteImport } from './routes/_app-layout/about'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const AppLayoutRoute = AppLayoutRouteImport.update({
+  id: '/_app-layout',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactIndexRoute = ContactIndexRouteImport.update({
@@ -23,49 +23,59 @@ const ContactIndexRoute = ContactIndexRouteImport.update({
   path: '/contact/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AboutIndexRoute = AboutIndexRouteImport.update({
-  id: '/about/',
-  path: '/about/',
-  getParentRoute: () => rootRouteImport,
+const AppLayoutIndexRoute = AppLayoutIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppLayoutRoute,
+} as any)
+const AppLayoutAboutRoute = AppLayoutAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => AppLayoutRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/about': typeof AboutIndexRoute
+  '/about': typeof AppLayoutAboutRoute
+  '/': typeof AppLayoutIndexRoute
   '/contact': typeof ContactIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/about': typeof AboutIndexRoute
+  '/about': typeof AppLayoutAboutRoute
+  '/': typeof AppLayoutIndexRoute
   '/contact': typeof ContactIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/about/': typeof AboutIndexRoute
+  '/_app-layout': typeof AppLayoutRouteWithChildren
+  '/_app-layout/about': typeof AppLayoutAboutRoute
+  '/_app-layout/': typeof AppLayoutIndexRoute
   '/contact/': typeof ContactIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/contact'
+  fullPaths: '/about' | '/' | '/contact'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact'
-  id: '__root__' | '/' | '/about/' | '/contact/'
+  to: '/about' | '/' | '/contact'
+  id:
+    | '__root__'
+    | '/_app-layout'
+    | '/_app-layout/about'
+    | '/_app-layout/'
+    | '/contact/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AboutIndexRoute: typeof AboutIndexRoute
+  AppLayoutRoute: typeof AppLayoutRouteWithChildren
   ContactIndexRoute: typeof ContactIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/_app-layout': {
+      id: '/_app-layout'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AppLayoutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact/': {
@@ -75,19 +85,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/about/': {
-      id: '/about/'
+    '/_app-layout/': {
+      id: '/_app-layout/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof AppLayoutIndexRouteImport
+      parentRoute: typeof AppLayoutRoute
+    }
+    '/_app-layout/about': {
+      id: '/_app-layout/about'
       path: '/about'
       fullPath: '/about'
-      preLoaderRoute: typeof AboutIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AppLayoutAboutRouteImport
+      parentRoute: typeof AppLayoutRoute
     }
   }
 }
 
+interface AppLayoutRouteChildren {
+  AppLayoutAboutRoute: typeof AppLayoutAboutRoute
+  AppLayoutIndexRoute: typeof AppLayoutIndexRoute
+}
+
+const AppLayoutRouteChildren: AppLayoutRouteChildren = {
+  AppLayoutAboutRoute: AppLayoutAboutRoute,
+  AppLayoutIndexRoute: AppLayoutIndexRoute,
+}
+
+const AppLayoutRouteWithChildren = AppLayoutRoute._addFileChildren(
+  AppLayoutRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  AboutIndexRoute: AboutIndexRoute,
+  AppLayoutRoute: AppLayoutRouteWithChildren,
   ContactIndexRoute: ContactIndexRoute,
 }
 export const routeTree = rootRouteImport
