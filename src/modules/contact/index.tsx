@@ -1,4 +1,3 @@
-import { createFileRoute } from '@tanstack/react-router';
 import { Clock, Mail, MapPin, Phone } from 'lucide-react';
 import { Heading, HightlightText, NormalText } from '@/components/common/typography';
 import { Card } from '@/components/ui/card';
@@ -26,20 +25,7 @@ export const contactInfo = [
   },
 ];
 
-export const Route = createFileRoute('/contact/')({
-  component: ContactUs,
-});
-
-function _StatsCard({ value, label }: { value: string; label: string }) {
-  return (
-    <div className='border rounded-xl p-10 text-center shadow-sm'>
-      <h2 className='text-4xl font-playfair text-primary font-semibold'>{value}</h2>
-      <p className='mt-2 text-muted-foreground'>{label}</p>
-    </div>
-  );
-}
-
-function ContactUs() {
+export function ContactUs() {
   return (
     <div>
       <div className='text-center mx-auto py-30 space-y-3'>

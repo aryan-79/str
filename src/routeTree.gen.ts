@@ -10,22 +10,22 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AppLayoutRouteImport } from './routes/_app-layout'
-import { Route as ContactIndexRouteImport } from './routes/contact/index'
 import { Route as AppLayoutIndexRouteImport } from './routes/_app-layout/index'
+import { Route as AppLayoutContactRouteImport } from './routes/_app-layout/contact'
 import { Route as AppLayoutAboutRouteImport } from './routes/_app-layout/about'
 
 const AppLayoutRoute = AppLayoutRouteImport.update({
   id: '/_app-layout',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ContactIndexRoute = ContactIndexRouteImport.update({
-  id: '/contact/',
-  path: '/contact/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AppLayoutIndexRoute = AppLayoutIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AppLayoutRoute,
+} as any)
+const AppLayoutContactRoute = AppLayoutContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => AppLayoutRoute,
 } as any)
 const AppLayoutAboutRoute = AppLayoutAboutRouteImport.update({
@@ -36,37 +36,36 @@ const AppLayoutAboutRoute = AppLayoutAboutRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/about': typeof AppLayoutAboutRoute
+  '/contact': typeof AppLayoutContactRoute
   '/': typeof AppLayoutIndexRoute
-  '/contact': typeof ContactIndexRoute
 }
 export interface FileRoutesByTo {
   '/about': typeof AppLayoutAboutRoute
+  '/contact': typeof AppLayoutContactRoute
   '/': typeof AppLayoutIndexRoute
-  '/contact': typeof ContactIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_app-layout': typeof AppLayoutRouteWithChildren
   '/_app-layout/about': typeof AppLayoutAboutRoute
+  '/_app-layout/contact': typeof AppLayoutContactRoute
   '/_app-layout/': typeof AppLayoutIndexRoute
-  '/contact/': typeof ContactIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/about' | '/' | '/contact'
+  fullPaths: '/about' | '/contact' | '/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/about' | '/' | '/contact'
+  to: '/about' | '/contact' | '/'
   id:
     | '__root__'
     | '/_app-layout'
     | '/_app-layout/about'
+    | '/_app-layout/contact'
     | '/_app-layout/'
-    | '/contact/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   AppLayoutRoute: typeof AppLayoutRouteWithChildren
-  ContactIndexRoute: typeof ContactIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -78,18 +77,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppLayoutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/contact/': {
-      id: '/contact/'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/_app-layout/': {
       id: '/_app-layout/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof AppLayoutIndexRouteImport
+      parentRoute: typeof AppLayoutRoute
+    }
+    '/_app-layout/contact': {
+      id: '/_app-layout/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof AppLayoutContactRouteImport
       parentRoute: typeof AppLayoutRoute
     }
     '/_app-layout/about': {
@@ -104,11 +103,13 @@ declare module '@tanstack/react-router' {
 
 interface AppLayoutRouteChildren {
   AppLayoutAboutRoute: typeof AppLayoutAboutRoute
+  AppLayoutContactRoute: typeof AppLayoutContactRoute
   AppLayoutIndexRoute: typeof AppLayoutIndexRoute
 }
 
 const AppLayoutRouteChildren: AppLayoutRouteChildren = {
   AppLayoutAboutRoute: AppLayoutAboutRoute,
+  AppLayoutContactRoute: AppLayoutContactRoute,
   AppLayoutIndexRoute: AppLayoutIndexRoute,
 }
 
@@ -118,7 +119,6 @@ const AppLayoutRouteWithChildren = AppLayoutRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   AppLayoutRoute: AppLayoutRouteWithChildren,
-  ContactIndexRoute: ContactIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
