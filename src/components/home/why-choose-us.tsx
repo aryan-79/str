@@ -1,4 +1,5 @@
 import { Award, BadgeCheck, CreditCard, Headphones, Leaf, MapPin } from 'lucide-react';
+import { companyName } from '@/lib/constants/company';
 import { Heading, HightlightText, NormalText } from '../common/typography';
 
 type Props = {
@@ -56,7 +57,7 @@ export function WhyChooseUs() {
 
         <Heading className='text-center font-semibold'>
           <NormalText text='Why Book With' />
-          <HightlightText text='Summit Adventures' className='text-secondary' />
+          <HightlightText text={companyName} className='text-secondary' />
         </Heading>
 
         <p className='text-muted-foreground'>
@@ -65,7 +66,7 @@ export function WhyChooseUs() {
         </p>
       </div>
 
-      <div className='grid grid-cols-3 gap-4 mt-8'>
+      <div className='grid  sm:grid-cols-2 md:grid-cols-3 gap-4 mt-8'>
         {features.map((item, index) => (
           <Card key={index} title={item.title} description={item.description} icon={iconMap[item.icon]} />
         ))}
