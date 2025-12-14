@@ -7,9 +7,11 @@ export const Route = createFileRoute('/_app-layout')({
 
 function RouteComponent() {
   return (
-    <>
+    <div className='flex flex-col gap-2 grow'>
       <Navbar />
-      <Outlet />
-    </>
+      <main className='flex-1'>
+        <Outlet />
+      </main>
+    </div>
   );
 }
