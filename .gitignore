@@ -11,3 +11,7 @@ count.txt
 .output
 .vinxi
 todos.json
+.idea
+/generated/prisma
+test.tsx
+

@@ -3,8 +3,7 @@ import { Destinations } from '@/components/home/explore-desination';
 
 import { FeaturedTours } from '@/components/home/featured-tours';
 import { WhyChooseUs } from '@/components/home/why-choose-us';
-
-import { getUsers } from '@/server/users';
+import { getUsers } from '@/server/users/user-service.ts';
 
 export const Route = createFileRoute('/')({
   loader: async ({ context }) => {

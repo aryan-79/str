@@ -1,5 +1,7 @@
 import { createServerFn } from '@tanstack/react-start';
 import z from 'zod';
+import { UserCreateSchema } from '@/lib/schema/auth-schema.ts';
+import { prisma } from '@/server/db.ts';
 
 const paginationSchema = z.object({
   page: z.number(),
@@ -31,21 +33,20 @@ export const getUsers = createServerFn({ method: 'GET' })
     };
   });
 
-const userSchema = z.object({
-  email: z.email(),
-  name: z.string(),
-});
-
 export const createUser = createServerFn({ method: 'POST' })
-  .inputValidator(userSchema)
+  .inputValidator(UserCreateSchema)
   .handler(async ({ data }) => {
-    const { email, name } = data;
-    console.log(`User created with name: ${name} and email: ${email}`);
+    const { email, fullName, password } = data;
 
-    return {
+    console.log(`User created with name: ${fullName} and email: ${email}`);
+
+    const res = await prisma.user.create({
       data: {
         email,
-        name,
+        fullName,
+        password,
       },
-    };
+    });
+
+    return res;
   });
