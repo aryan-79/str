@@ -132,3 +132,9 @@
   margin-inline: auto;
   padding-inline: 2rem;
 }
+
+.hero-gradient {
+  background:
+    radial-gradient(ellipse at 20% 100%, var(--color-background), transparent),
+    radial-gradient(ellipse at right, color-mix(in oklab, var(--secondary) 40%, transparent), transparent);
+}
